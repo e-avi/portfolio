@@ -5,16 +5,45 @@ import {
   Github,
   Linkedin,
   Mail,
+  Moon,
   Sparkles,
+  Sun,
   Terminal,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { portfolio } from "../data/portfolio";
+
+type Theme = "light" | "dark" | "matsu";
 
 type MainPortfolioProps = {
   navigateFun: () => void;
 };
 
 export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme") as Theme;
+      if (saved) return saved;
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      return prefersDark ? "dark" : "light";
+    }
+    return "light";
+  });
+
+  const [activeExperience, setActiveExperience] = useState(0);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const cycleTheme = () => {
+    setTheme((current) => (current === "light" ? "dark" : current === "dark" ? "matsu" : "light"));
+  };
+
+  const ThemeIcon = theme === "light" ? Sun : theme === "dark" ? Moon : Sun;
+
   return (
     <main className="site-shell">
       <nav className="main-nav" aria-label="Primary">
@@ -26,19 +55,21 @@ export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
           <a href="#skills">Skills</a>
           <a href="#contact">Contact</a>
         </div>
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={cycleTheme}
+          aria-label={`Switch to ${theme === "light" ? "dark" : theme === "dark" ? "matte" : "light"} theme`}
+        >
+          <ThemeIcon size={18} />
+        </button>
       </nav>
 
       <section id="top" className="hero-section">
         <div className="hero-backdrop" aria-hidden="true">
-          <div className="system-constellation">
-            <span className="node node-a" />
-            <span className="node node-b" />
-            <span className="node node-c" />
-            <span className="node node-d" />
-            <span className="line line-a" />
-            <span className="line line-b" />
-            <span className="line line-c" />
-          </div>
+          <span className="ripple" />
+          <span className="ripple" />
+          <span className="ripple" />
           <div className="boot-preview">
             <div className="boot-bar">
               <span />
@@ -119,8 +150,11 @@ export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
             <h2 id="experience-heading">The practical side of the machine.</h2>
           </div>
           <div className="timeline">
-            {portfolio.experience.map((item) => (
-              <article className="timeline-item" key={`${item.role}-${item.organization}`}>
+            {portfolio.experience.map((item, index) => (
+              <article
+                className={`timeline-item ${index === activeExperience ? "active" : ""}`}
+                key={`${item.role}-${item.organization}`}
+              >
                 <span>{item.period}</span>
                 <h3>{item.role}</h3>
                 <p className="timeline-org">
@@ -131,6 +165,19 @@ export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
             ))}
           </div>
         </div>
+        <div className="peak-dots" aria-label="Experience timeline navigation">
+          {portfolio.experience.map((item, index) => (
+            <button
+              key={`${item.role}-${item.organization}`}
+              className={`peak-dot ${index === activeExperience ? "active" : ""}`}
+              type="button"
+              onClick={() => setActiveExperience(index)}
+              aria-label={`View experience: ${item.role} at ${item.organization}`}
+            >
+              <span className="dot-inner" />
+            </button>
+          ))}
+        </div>
       </section>
 
       <section id="skills" className="content-band" aria-labelledby="skills-heading">
@@ -139,19 +186,16 @@ export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
             <p className="section-kicker">Skills</p>
             <h2 id="skills-heading">A toolkit that keeps expanding.</h2>
           </div>
-          <div className="skill-grid">
-            {portfolio.skillGroups.map((group) => (
-              <article className="skill-panel" key={group.label}>
-                <h3>{group.label}</h3>
-                <div className="chip-row">
-                  {group.items.map((item) => (
-                    <span className="chip chip-bright" key={item}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            ))}
+          <div className="ticker" aria-label="Skills ticker">
+            <div className="ticker-track">
+              {Array(2).fill(null).flatMap((_, i) =>
+                portfolio.skillGroups.flatMap((group) => [group.label, ...group.items]).map((item) => (
+                  <span className="ticker-item" key={`${i}-${item}`}>
+                    {item}
+                  </span>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </section>

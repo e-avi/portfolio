@@ -335,16 +335,16 @@ function WindowContent({ id, openWindow }: { id: WindowId; openWindow: (id: Wind
 function AboutApp() {
   return (
     <div className="window-document">
-      <p className="terminal-line">cat /home/avi/about.txt</p>
-      <h2>{portfolio.profile.name}</h2>
+      <p className="terminal-line" style={{ color: "#f97316" }}>cat /home/avi/about.txt</p>
+      <h2 style={{ color: "#f97316" }}>{portfolio.profile.name}</h2>
       <p>{portfolio.profile.about}</p>
       <dl className="fact-list">
         <div>
-          <dt>Location</dt>
+          <dt style={{ color: "#f97316" }}>Location</dt>
           <dd>{portfolio.profile.location}</dd>
         </div>
         <div>
-          <dt>Status</dt>
+          <dt style={{ color: "#f97316" }}>Status</dt>
           <dd>{portfolio.profile.availability}</dd>
         </div>
       </dl>
