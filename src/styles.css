@@ -1,4 +1,19 @@
+/* Theme Colors */
+:root {
+  --isabelline: #f4f1ed;
+  --quick-silver: #a0a0a0;
+  --aurometalsaurus: #b8b8b8;
+  --light-gray: #d3d3d3;
+  --black-olive: #3b3c36;
+  --black: #000000;
+}
+
 * {
   border: 0;
   margin: 0;
+}
+
+body {
+  background: var(--isabelline);
+  color: var(--black-olive);
 }
