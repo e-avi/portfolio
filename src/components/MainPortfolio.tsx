@@ -10,6 +10,8 @@ export function MainPortfolio({ navigateFun }: MainPortfolioProps) {
         background: "var(--isabelline)",
         padding: "2rem",
       }}
-    />
+    >
+      <div className="container"></div>
+    </main>
   );
 }
