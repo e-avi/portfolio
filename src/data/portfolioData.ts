@@ -39,15 +39,14 @@ export interface PortfolioData {
 }
 
 export const portfolioData: PortfolioData = {
-  name: "Avi",
-  title: "Avi",
-  subtitle: "Full Stack Engineer & Web Enthusiast",
-  bio: "I build responsive, high-performance web applications with a focus on modern user interfaces, premium design systems, and robust backend architectures. Passionate about clean code, performance optimization, and creating delightful digital experiences.",
-  avatarUrl: "/avatar.jpg",
+  name: "Vidit Saxena",
+  title: "Vidit Saxena",
+  subtitle: "Software Engineer | AI Governance Engineer",
+  bio: "Building intelligent software for the AI era. I design and engineer enterprise applications, AI governance platforms, and privacy-first solutions that help organizations harness AI safely, securely, and at scale.",
   socials: {
-    github: "https://github.com/avi",
-    linkedin: "https://linkedin.com/in/avi",
-    email: "mailto:avi@example.com",
+    github: "https://github.com/e-avi",
+    linkedin: "www.linkedin.com/in/vidit-saxena-54a489251",
+    email: "mailto:avi18128@gmail.com",
   },
   skills: [
     {
@@ -56,11 +55,25 @@ export const portfolioData: PortfolioData = {
     },
     {
       category: "Frontend",
-      skills: ["React", "Next.js", "Vite", "Tailwind CSS", "Redux Toolkit", "Framer Motion"],
+      skills: [
+        "React",
+        "Next.js",
+        "Vite",
+        "Tailwind CSS",
+        "Redux Toolkit",
+        "Framer Motion",
+      ],
     },
     {
       category: "Backend & Databases",
-      skills: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Redis", "GraphQL"],
+      skills: [
+        "Node.js",
+        "Express",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "GraphQL",
+      ],
     },
     {
       category: "Tools & DevOps",
@@ -105,7 +118,8 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       title: "SudoResume",
-      description: "An AI-powered platform for building ATS-friendly, highly optimized resumes. Parses resume drafts and provides real-time score analytics and optimization tips.",
+      description:
+        "An AI-powered platform for building ATS-friendly, highly optimized resumes. Parses resume drafts and provides real-time score analytics and optimization tips.",
       tags: ["React", "TypeScript", "Tailwind CSS", "Node.js", "OpenAI API"],
       githubUrl: "https://github.com/avi/sudo-resume",
       liveUrl: "https://sudo-resume.example.com",
@@ -113,7 +127,8 @@ export const portfolioData: PortfolioData = {
     },
     {
       title: "PromptForge",
-      description: "A collaborative prompt engineering studio. Design, version control, and debug LLM prompts with variables, testing suites, and playground UI.",
+      description:
+        "A collaborative prompt engineering studio. Design, version control, and debug LLM prompts with variables, testing suites, and playground UI.",
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Prisma"],
       githubUrl: "https://github.com/avi/prompt-forge",
       liveUrl: "https://prompt-forge.example.com",
@@ -121,7 +136,8 @@ export const portfolioData: PortfolioData = {
     },
     {
       title: "QuickTag QR System",
-      description: "A dynamic and static QR code generation tool. Track scans, configure redirect links dynamically, and style QR codes with custom frames and gradients.",
+      description:
+        "A dynamic and static QR code generation tool. Track scans, configure redirect links dynamically, and style QR codes with custom frames and gradients.",
       tags: ["React", "Vite", "Tailwind CSS", "MongoDB", "Express"],
       githubUrl: "https://github.com/avi/quicktag",
       liveUrl: "https://quicktag.example.com",
@@ -129,7 +145,8 @@ export const portfolioData: PortfolioData = {
     },
     {
       title: "OmniAnalytics Dashboard",
-      description: "A drag-and-drop analytics dashboard with real-time web-socket updates. Visualizes server metrics, sales conversions, and geographic usage statistics.",
+      description:
+        "A drag-and-drop analytics dashboard with real-time web-socket updates. Visualizes server metrics, sales conversions, and geographic usage statistics.",
       tags: ["React", "Tailwind CSS", "ChartJS", "Socket.io", "Redis"],
       githubUrl: "https://github.com/avi/omni-analytics",
       liveUrl: "https://omni-analytics.example.com",

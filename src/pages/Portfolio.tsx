@@ -38,7 +38,9 @@ export default function Portfolio() {
     if (savedTheme) {
       setDarkMode(savedTheme === "dark");
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
       setDarkMode(prefersDark);
     }
   }, []);
@@ -51,7 +53,11 @@ export default function Portfolio() {
   };
 
   // Get unique tags for project filtering
-  const allTags = ["All", "Featured", ...new Set(portfolioData.projects.flatMap((p) => p.tags))];
+  const allTags = [
+    "All",
+    "Featured",
+    ...new Set(portfolioData.projects.flatMap((p) => p.tags)),
+  ];
 
   // Filter projects based on selected filter
   const filteredProjects = portfolioData.projects.filter((project) => {
@@ -75,16 +81,21 @@ export default function Portfolio() {
   // Icon selector based on skill category name
   const getCategoryIcon = (category: string) => {
     const name = category.toLowerCase();
-    if (name.includes("lang")) return <Terminal className="w-5 h-5 text-aurometalsaurus" />;
-    if (name.includes("front")) return <Layers className="w-5 h-5 text-aurometalsaurus" />;
-    if (name.includes("back") || name.includes("data")) return <Cpu className="w-5 h-5 text-aurometalsaurus" />;
+    if (name.includes("lang"))
+      return <Terminal className="w-5 h-5 text-aurometalsaurus" />;
+    if (name.includes("front"))
+      return <Layers className="w-5 h-5 text-aurometalsaurus" />;
+    if (name.includes("back") || name.includes("data"))
+      return <Cpu className="w-5 h-5 text-aurometalsaurus" />;
     return <Code className="w-5 h-5 text-aurometalsaurus" />;
   };
 
   return (
     <div
       className={`min-h-screen transition-colors duration-300 ${
-        darkMode ? "bg-blackolive text-isabelline" : "bg-isabelline text-blackolive"
+        darkMode
+          ? "bg-blackolive text-isabelline"
+          : "bg-isabelline text-blackolive"
       } font-sans selection:bg-aurometalsaurus selection:text-isabelline`}
     >
       {/* Background Effects */}
@@ -105,7 +116,7 @@ export default function Portfolio() {
             darkMode ? "bg-aurometalsaurus" : "bg-quicksilver"
           }`}
         ></div>
-        
+
         {/* Orb 2: Bottom Right */}
         <div
           className={`absolute bottom-[10%] right-[-15%] w-[40rem] h-[40rem] rounded-full blur-[150px] opacity-20 animate-float-reverse transition-colors duration-500 ${
@@ -129,15 +140,7 @@ export default function Portfolio() {
             : "bg-isabelline/80 border-quicksilver/30 text-blackolive"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a
-            href="#hero"
-            className="text-2xl font-bold tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2"
-          >
-            <Sparkles className="w-6 h-6 text-aurometalsaurus" />
-            <span className="font-mono">{portfolioData.name}.dev</span>
-          </a>
-
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-end">
           {/* Desktop Nav Items */}
           <nav className="hidden md:flex items-center gap-8">
             <a
@@ -166,7 +169,9 @@ export default function Portfolio() {
             </a>
 
             {/* Vertical Line */}
-            <span className={`h-4 w-px ${darkMode ? "bg-aurometalsaurus/35" : "bg-quicksilver/50"}`}></span>
+            <span
+              className={`h-4 w-px ${darkMode ? "bg-aurometalsaurus/35" : "bg-quicksilver/50"}`}
+            ></span>
 
             {/* Dark Mode Toggle */}
             <button
@@ -178,7 +183,11 @@ export default function Portfolio() {
               }`}
               aria-label="Toggle theme"
             >
-              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {darkMode ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
             </button>
           </nav>
 
@@ -193,7 +202,11 @@ export default function Portfolio() {
               }`}
               aria-label="Toggle theme"
             >
-              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {darkMode ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
             </button>
 
             <button
@@ -201,7 +214,11 @@ export default function Portfolio() {
               className="p-1"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -252,23 +269,10 @@ export default function Portfolio() {
         {/* HERO SECTION */}
         <section
           id="hero"
-          className="min-h-[85vh] flex flex-col md:flex-row items-center justify-between gap-12 py-20 relative"
+          className="min-h-[85vh] flex flex-col items-center justify-center gap-8 py-20 relative text-center"
         >
-          <div className="space-y-6 max-w-3xl flex-1 order-2 md:order-1">
-            {/* Tag / Badge */}
-            <div
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono border ${
-                darkMode
-                  ? "bg-aurometalsaurus/10 border-aurometalsaurus/35 text-lightgray"
-                  : "bg-lightgray/20 border-quicksilver/40 text-blackolive"
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full bg-aurometalsaurus animate-pulse"></span>
-              Available for work
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]">
-              Hi, I'm{" "}
+          <div className="space-y-6 max-w-3xl flex flex-col items-center justify-center">
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tight leading-[1.1]">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-aurometalsaurus via-quicksilver to-lightgray">
                 {portfolioData.name}
               </span>
@@ -286,80 +290,70 @@ export default function Portfolio() {
               {portfolioData.bio}
             </p>
 
-            {/* Action CTAs */}
-            <div className="flex flex-wrap gap-4 pt-4">
+            {/* Action CTA */}
+            <div className="pt-4">
               <a
                 href="#projects"
-                className={`px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 duration-200 border ${
+                className={`px-8 py-4.5 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 duration-200 border cursor-pointer inline-block ${
                   darkMode
                     ? "bg-isabelline text-blackolive border-isabelline hover:bg-lightgray"
                     : "bg-blackolive text-isabelline border-blackolive hover:bg-blackolive/90"
                 }`}
               >
-                View Projects
-              </a>
-              <a
-                href="#contact"
-                className={`px-6 py-3 rounded-lg font-medium transition-all hover:-translate-y-0.5 duration-200 border ${
-                  darkMode
-                    ? "border-aurometalsaurus/50 hover:bg-aurometalsaurus/15 text-isabelline"
-                    : "border-blackolive/40 hover:bg-blackolive/5 text-blackolive"
-                }`}
-              >
-                Get In Touch
+                View in a different way
               </a>
             </div>
 
+            <br />
+
             {/* Social Links */}
-            <div className="flex items-center gap-5 pt-8">
+            <div className="flex items-center justify-center gap-8 pt-6">
               <a
                 href={portfolioData.socials.github}
                 target="_blank"
                 rel="noreferrer"
-                className={`p-2 rounded-full transition-colors hover:text-aurometalsaurus border ${
-                  darkMode ? "border-aurometalsaurus/20 bg-aurometalsaurus/5" : "border-quicksilver/30 bg-lightgray/10"
+                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                  darkMode
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
+                    : "border-quicksilver/30 bg-lightgray/10"
                 }`}
                 aria-label="GitHub Profile"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-8 h-8" />
               </a>
               <a
                 href={portfolioData.socials.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className={`p-2 rounded-full transition-colors hover:text-aurometalsaurus border ${
-                  darkMode ? "border-aurometalsaurus/20 bg-aurometalsaurus/5" : "border-quicksilver/30 bg-lightgray/10"
+                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                  darkMode
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
+                    : "border-quicksilver/30 bg-lightgray/10"
                 }`}
                 aria-label="LinkedIn Profile"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-8 h-8" />
               </a>
               <a
                 href={portfolioData.socials.email}
-                className={`p-2 rounded-full transition-colors hover:text-aurometalsaurus border ${
-                  darkMode ? "border-aurometalsaurus/20 bg-aurometalsaurus/5" : "border-quicksilver/30 bg-lightgray/10"
+                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                  darkMode
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
+                    : "border-quicksilver/30 bg-lightgray/10"
                 }`}
                 aria-label="Send Email"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-8 h-8" />
               </a>
             </div>
           </div>
-
-          {portfolioData.avatarUrl && (
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-aurometalsaurus/20 overflow-hidden flex-shrink-0 order-1 md:order-2 shadow-2xl relative">
-              <div className="absolute inset-0 bg-gradient-to-tr from-aurometalsaurus/20 to-transparent mix-blend-overlay"></div>
-              <img
-                src={portfolioData.avatarUrl}
-                alt={portfolioData.name}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-          )}
         </section>
 
         {/* ABOUT & SKILLS SECTION */}
-        <section id="about" className="py-24 border-t border-dashed border-aurometalsaurus/20">
+        <section
+          id="about"
+          className="py-24 border-t border-dashed border-aurometalsaurus/20"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* Column 1: About Me text */}
             <div className="lg:col-span-5 space-y-6">
@@ -367,20 +361,29 @@ export default function Portfolio() {
                 <User className="w-4 h-4" />
                 <span>About Me</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">My Engineering Journey</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                My Engineering Journey
+              </h2>
               <div
                 className={`space-y-4 text-base leading-relaxed ${
                   darkMode ? "text-lightgray" : "text-blackolive/80"
                 }`}
               >
                 <p>
-                  I'm a developer who enjoys crafting scalable web systems. My engineering ethos revolves around simplicity, performance, and attention to detail.
+                  I'm a developer who enjoys crafting scalable web systems. My
+                  engineering ethos revolves around simplicity, performance, and
+                  attention to detail.
                 </p>
                 <p>
-                  Whether working on complex system architectures, designing custom component frameworks, or optimizing database queries, I aim to construct clean, maintainable solutions.
+                  Whether working on complex system architectures, designing
+                  custom component frameworks, or optimizing database queries, I
+                  aim to construct clean, maintainable solutions.
                 </p>
                 <p>
-                  My color theme for this site (Isabelline, Quick Silver, Aurometalsaurus, Light Gray, and Black Olive) reflects my design style: structured, professional, and carefully balanced.
+                  My color theme for this site (Isabelline, Quick Silver,
+                  Aurometalsaurus, Light Gray, and Black Olive) reflects my
+                  design style: structured, professional, and carefully
+                  balanced.
                 </p>
               </div>
             </div>
@@ -388,7 +391,8 @@ export default function Portfolio() {
             {/* Column 2: Categorized Skills */}
             <div className="lg:col-span-7 space-y-8">
               <h3 className="text-xl font-bold tracking-tight flex items-center gap-2">
-                <Code className="w-5 h-5 text-aurometalsaurus" /> Technologies I Work With
+                <Code className="w-5 h-5 text-aurometalsaurus" /> Technologies I
+                Work With
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -403,7 +407,9 @@ export default function Portfolio() {
                   >
                     <div className="flex items-center gap-3 mb-4">
                       {getCategoryIcon(cat.category)}
-                      <h4 className="font-semibold text-base">{cat.category}</h4>
+                      <h4 className="font-semibold text-base">
+                        {cat.category}
+                      </h4>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {cat.skills.map((skill, sIdx) => (
@@ -427,14 +433,19 @@ export default function Portfolio() {
         </section>
 
         {/* EXPERIENCE TIMELINE SECTION */}
-        <section id="experience" className="py-24 border-t border-dashed border-aurometalsaurus/20">
+        <section
+          id="experience"
+          className="py-24 border-t border-dashed border-aurometalsaurus/20"
+        >
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="space-y-4 text-center">
               <div className="inline-flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
                 <Briefcase className="w-4 h-4" />
                 <span>Professional Experience</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Work Timeline</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Work Timeline
+              </h2>
             </div>
 
             <div className="relative pl-6 md:pl-8 border-l border-aurometalsaurus/25 space-y-12 py-4">
@@ -459,7 +470,9 @@ export default function Portfolio() {
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
                       <div>
-                        <h3 className="text-lg font-bold tracking-tight">{exp.role}</h3>
+                        <h3 className="text-lg font-bold tracking-tight">
+                          {exp.role}
+                        </h3>
                         <p className="text-sm font-medium text-aurometalsaurus font-mono">
                           {exp.company}
                         </p>
@@ -503,7 +516,10 @@ export default function Portfolio() {
         </section>
 
         {/* PROJECTS SECTION */}
-        <section id="projects" className="py-24 border-t border-dashed border-aurometalsaurus/20">
+        <section
+          id="projects"
+          className="py-24 border-t border-dashed border-aurometalsaurus/20"
+        >
           <div className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
@@ -511,7 +527,9 @@ export default function Portfolio() {
                   <Folder className="w-4 h-4" />
                   <span>My Creations</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h2>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  Featured Projects
+                </h2>
               </div>
 
               {/* Filters list */}
@@ -526,8 +544,8 @@ export default function Portfolio() {
                           ? "bg-isabelline text-blackolive border-isabelline"
                           : "bg-blackolive text-isabelline border-blackolive"
                         : darkMode
-                        ? "border-aurometalsaurus/20 text-lightgray hover:border-aurometalsaurus/40 hover:bg-aurometalsaurus/5"
-                        : "border-quicksilver/35 text-blackolive/70 hover:border-quicksilver/60 hover:bg-lightgray/10"
+                          ? "border-aurometalsaurus/20 text-lightgray hover:border-aurometalsaurus/40 hover:bg-aurometalsaurus/5"
+                          : "border-quicksilver/35 text-blackolive/70 hover:border-quicksilver/60 hover:bg-lightgray/10"
                     }`}
                   >
                     {tag}
@@ -608,7 +626,9 @@ export default function Portfolio() {
                   {/* Tags footer */}
                   <div
                     className={`px-6 py-4 flex flex-wrap gap-2 border-t ${
-                      darkMode ? "bg-blackolive/20 border-aurometalsaurus/10" : "bg-lightgray/5 border-quicksilver/20"
+                      darkMode
+                        ? "bg-blackolive/20 border-aurometalsaurus/10"
+                        : "bg-lightgray/5 border-quicksilver/20"
                     }`}
                   >
                     {project.tags.map((tag, tIdx) => (
@@ -633,7 +653,10 @@ export default function Portfolio() {
         </section>
 
         {/* CONTACT SECTION */}
-        <section id="contact" className="py-24 border-t border-dashed border-aurometalsaurus/20">
+        <section
+          id="contact"
+          className="py-24 border-t border-dashed border-aurometalsaurus/20"
+        >
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* Info Panel */}
             <div className="lg:col-span-5 space-y-6">
@@ -641,13 +664,16 @@ export default function Portfolio() {
                 <Mail className="w-4 h-4" />
                 <span>Contact Info</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Let's Connect</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Let's Connect
+              </h2>
               <p
                 className={`text-sm md:text-base leading-relaxed ${
                   darkMode ? "text-lightgray" : "text-blackolive/80"
                 }`}
               >
-                I'm always open to discussing new opportunities, collaborations, creative ideas, or questions about web development and designs.
+                I'm always open to discussing new opportunities, collaborations,
+                creative ideas, or questions about web development and designs.
               </p>
 
               <div className="space-y-4 pt-4 font-mono text-xs md:text-sm">
@@ -656,7 +682,9 @@ export default function Portfolio() {
                   className="flex items-center gap-3 hover:text-aurometalsaurus transition-colors"
                 >
                   <Mail className="w-4 h-4 text-aurometalsaurus shrink-0" />
-                  <span>{portfolioData.socials.email.replace("mailto:", "")}</span>
+                  <span>
+                    {portfolioData.socials.email.replace("mailto:", "")}
+                  </span>
                 </a>
                 <div className="flex items-center gap-3">
                   <span className="w-4 h-4 block border border-aurometalsaurus rounded-full shrink-0 flex items-center justify-center">
@@ -678,20 +706,30 @@ export default function Portfolio() {
                   }`}
                 >
                   <CheckCircle className="w-12 h-12 text-aurometalsaurus animate-bounce" />
-                  <h3 className="text-xl font-bold tracking-tight">Message Transmitted!</h3>
-                  <p className={`text-sm max-w-sm ${darkMode ? "text-lightgray" : "text-blackolive/75"}`}>
-                    Thanks for reaching out, Avi! Your message details have been saved, and I will get back to you shortly.
+                  <h3 className="text-xl font-bold tracking-tight">
+                    Message Transmitted!
+                  </h3>
+                  <p
+                    className={`text-sm max-w-sm ${darkMode ? "text-lightgray" : "text-blackolive/75"}`}
+                  >
+                    Thanks for reaching out, Avi! Your message details have been
+                    saved, and I will get back to you shortly.
                   </p>
                 </div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
                   className={`p-6 md:p-8 rounded-xl border space-y-6 ${
-                    darkMode ? "bg-[#2E2F2A] border-aurometalsaurus/20" : "bg-white border-quicksilver/30"
+                    darkMode
+                      ? "bg-[#2E2F2A] border-aurometalsaurus/20"
+                      : "bg-white border-quicksilver/30"
                   }`}
                 >
                   <div className="space-y-2">
-                    <label htmlFor="form-name" className="text-xs font-mono font-medium tracking-wide uppercase opacity-80">
+                    <label
+                      htmlFor="form-name"
+                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                    >
                       Your Name
                     </label>
                     <input
@@ -699,7 +737,9 @@ export default function Portfolio() {
                       type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       placeholder="Jane Doe"
                       className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-all duration-200 ${
                         darkMode
@@ -710,7 +750,10 @@ export default function Portfolio() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="form-email" className="text-xs font-mono font-medium tracking-wide uppercase opacity-80">
+                    <label
+                      htmlFor="form-email"
+                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                    >
                       Email Address
                     </label>
                     <input
@@ -718,7 +761,9 @@ export default function Portfolio() {
                       type="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       placeholder="jane@example.com"
                       className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-all duration-200 ${
                         darkMode
@@ -729,7 +774,10 @@ export default function Portfolio() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="form-message" className="text-xs font-mono font-medium tracking-wide uppercase opacity-80">
+                    <label
+                      htmlFor="form-message"
+                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                    >
                       Write Message
                     </label>
                     <textarea
@@ -737,7 +785,9 @@ export default function Portfolio() {
                       rows={5}
                       required
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
                       placeholder="What would you like to build?"
                       className={`w-full px-4 py-3 rounded-lg border text-sm outline-none resize-none transition-all duration-200 ${
                         darkMode
@@ -775,8 +825,14 @@ export default function Portfolio() {
       >
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <p className="text-sm font-mono">© {new Date().getFullYear()} {portfolioData.name}. All rights reserved.</p>
-            <p className="text-xs opacity-60">Designed with Isabelline • Quick Silver • Aurometalsaurus • Light Gray • Black Olive</p>
+            <p className="text-sm font-mono">
+              © {new Date().getFullYear()} {portfolioData.name}. All rights
+              reserved.
+            </p>
+            <p className="text-xs opacity-60">
+              Designed with Isabelline • Quick Silver • Aurometalsaurus • Light
+              Gray • Black Olive
+            </p>
           </div>
 
           <div className="flex items-center gap-6">
