@@ -87,16 +87,36 @@ export default function Portfolio() {
         darkMode ? "bg-blackolive text-isabelline" : "bg-isabelline text-blackolive"
       } font-sans selection:bg-aurometalsaurus selection:text-isabelline`}
     >
-      {/* Background Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Dot Grid Pattern Overlay */}
         <div
-          className={`absolute top-[10%] left-[-10%] w-[30rem] h-[30rem] rounded-full blur-[120px] opacity-20 transition-colors duration-300 ${
+          className={`absolute inset-0 transition-opacity duration-500 opacity-[0.12] ${
+            darkMode
+              ? "bg-[radial-gradient(#F4F0EC_1px,transparent_1px)]"
+              : "bg-[radial-gradient(#3B3C36_1px,transparent_1px)]"
+          } [background-size:28px_28px]`}
+        ></div>
+
+        {/* Animated Gradient Orbs */}
+        {/* Orb 1: Top Left */}
+        <div
+          className={`absolute top-[5%] left-[-15%] w-[35rem] h-[35rem] rounded-full blur-[130px] opacity-25 animate-float-slow transition-colors duration-500 ${
             darkMode ? "bg-aurometalsaurus" : "bg-quicksilver"
           }`}
         ></div>
+        
+        {/* Orb 2: Bottom Right */}
         <div
-          className={`absolute bottom-[20%] right-[-10%] w-[35rem] h-[35rem] rounded-full blur-[150px] opacity-15 transition-colors duration-300 ${
+          className={`absolute bottom-[10%] right-[-15%] w-[40rem] h-[40rem] rounded-full blur-[150px] opacity-20 animate-float-reverse transition-colors duration-500 ${
             darkMode ? "bg-aurometalsaurus" : "bg-lightgray"
+          }`}
+        ></div>
+
+        {/* Orb 3: Mid Center */}
+        <div
+          className={`absolute top-[40%] left-[25%] w-[30rem] h-[30rem] rounded-full blur-[120px] opacity-15 animate-float-mid transition-colors duration-500 ${
+            darkMode ? "bg-quicksilver/50" : "bg-aurometalsaurus/30"
           }`}
         ></div>
       </div>
