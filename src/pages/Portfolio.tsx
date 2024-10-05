@@ -144,16 +144,16 @@ export default function Portfolio() {
           {/* Desktop Nav Items */}
           <nav className="hidden md:flex items-center gap-8">
             <a
-              href="#about"
-              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
-            >
-              About
-            </a>
-            <a
               href="#experience"
               className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
             >
-              Experience
+              Career
+            </a>
+            <a
+              href="#skills"
+              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
+            >
+              Skills
             </a>
             <a
               href="#projects"
@@ -233,18 +233,18 @@ export default function Portfolio() {
             }`}
           >
             <a
-              href="#about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
-            >
-              About
-            </a>
-            <a
               href="#experience"
               onClick={() => setMobileMenuOpen(false)}
               className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
             >
-              Experience
+              Career
+            </a>
+            <a
+              href="#skills"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
+            >
+              Skills
             </a>
             <a
               href="#projects"
@@ -349,90 +349,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ABOUT & SKILLS SECTION */}
-        <section
-          id="about"
-          className="py-24 border-t border-dashed border-aurometalsaurus/20"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            {/* Column 1: About Me text */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
-                <User className="w-4 h-4" />
-                <span>About Me</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                My Engineering Journey
-              </h2>
-              <div
-                className={`space-y-4 text-base leading-relaxed ${
-                  darkMode ? "text-lightgray" : "text-blackolive/80"
-                }`}
-              >
-                <p>
-                  I'm a developer who enjoys crafting scalable web systems. My
-                  engineering ethos revolves around simplicity, performance, and
-                  attention to detail.
-                </p>
-                <p>
-                  Whether working on complex system architectures, designing
-                  custom component frameworks, or optimizing database queries, I
-                  aim to construct clean, maintainable solutions.
-                </p>
-                <p>
-                  My color theme for this site (Isabelline, Quick Silver,
-                  Aurometalsaurus, Light Gray, and Black Olive) reflects my
-                  design style: structured, professional, and carefully
-                  balanced.
-                </p>
-              </div>
-            </div>
-
-            {/* Column 2: Categorized Skills */}
-            <div className="lg:col-span-7 space-y-8">
-              <h3 className="text-xl font-bold tracking-tight flex items-center gap-2">
-                <Code className="w-5 h-5 text-aurometalsaurus" /> Technologies I
-                Work With
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {portfolioData.skills.map((cat, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-6 rounded-xl border transition-all duration-300 ${
-                      darkMode
-                        ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-aurometalsaurus/40"
-                        : "bg-white border-quicksilver/30 hover:border-quicksilver/60"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      {getCategoryIcon(cat.category)}
-                      <h4 className="font-semibold text-base">
-                        {cat.category}
-                      </h4>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {cat.skills.map((skill, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className={`px-3 py-1 rounded-md text-xs font-mono border ${
-                            darkMode
-                              ? "bg-blackolive/60 border-aurometalsaurus/15 text-lightgray hover:border-aurometalsaurus/40"
-                              : "bg-lightgray/15 border-quicksilver/30 text-blackolive hover:border-quicksilver/60"
-                          } transition-colors duration-200`}
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* EXPERIENCE TIMELINE SECTION */}
+        {/* EXPERIENCE TIMELINE SECTION (CAREER) */}
         <section
           id="experience"
           className="py-24 border-t border-dashed border-aurometalsaurus/20"
@@ -505,6 +422,60 @@ export default function Portfolio() {
                           className="text-[10px] font-mono px-2 py-0.5 rounded opacity-75 hover:opacity-100 transition-opacity"
                         >
                           #{skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SKILLS SECTION */}
+        <section
+          id="skills"
+          className="py-24 border-t border-dashed border-aurometalsaurus/20"
+        >
+          <div className="space-y-12">
+            <div className="space-y-4 text-center">
+              <div className="inline-flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
+                <Code className="w-4 h-4" />
+                <span>My Toolkit</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Technical Expertise
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {portfolioData.skills.map((cat, idx) => (
+                <div
+                  key={idx}
+                  className={`p-6 rounded-xl border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                    darkMode
+                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-aurometalsaurus/40"
+                      : "bg-white border-quicksilver/30 hover:border-quicksilver/60"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      {getCategoryIcon(cat.category)}
+                      <h3 className="font-bold text-lg tracking-tight">
+                        {cat.category}
+                      </h3>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {cat.skills.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition-all duration-200 cursor-default ${
+                            darkMode
+                              ? "bg-blackolive/60 border-aurometalsaurus/15 text-lightgray hover:border-aurometalsaurus/40 hover:text-isabelline"
+                              : "bg-lightgray/15 border-quicksilver/30 text-blackolive hover:border-quicksilver/65 hover:bg-lightgray/30"
+                          }`}
+                        >
+                          {skill}
                         </span>
                       ))}
                     </div>
