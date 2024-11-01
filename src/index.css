@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
+
+:root {
+  --color-accent: #C5A059;
+}
 
 @theme {
   --color-isabelline: #F4F0EC;
@@ -6,6 +11,11 @@
   --color-aurometalsaurus: #6E7F80;
   --color-lightgray: #D3D3D3;
   --color-blackolive: #3B3C36;
+  --color-bronze: var(--color-accent);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   --animate-float-slow: float-slow 25s ease-in-out infinite;
   --animate-float-reverse: float-reverse 30s ease-in-out infinite;
@@ -41,4 +51,8 @@
       transform: translate(50px, 40px) scale(1.1);
     }
   }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
 }

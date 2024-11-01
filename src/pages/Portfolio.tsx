@@ -21,8 +21,18 @@ import {
 } from "lucide-react";
 import { portfolioData, Project } from "../data/portfolioData";
 
+const ACCENT_COLORS = [
+  { name: "Gold", hex: "#C5A059", class: "bg-[#C5A059]" },
+  { name: "Terracotta", hex: "#B25034", class: "bg-[#B25034]" },
+  { name: "Steel Blue", hex: "#4A6B82", class: "bg-[#4A6B82]" },
+  { name: "Forest Green", hex: "#2E7D52", class: "bg-[#2E7D52]" },
+];
+
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [accentColor, setAccentColor] = useState<string>(() => {
+    return localStorage.getItem("accentColor") || "Gold";
+  });
   const [projectFilter, setProjectFilter] = useState<string>("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
@@ -44,6 +54,15 @@ export default function Portfolio() {
       setDarkMode(prefersDark);
     }
   }, []);
+
+  // Handle dynamic accent color switching
+  useEffect(() => {
+    const activeColor = ACCENT_COLORS.find((c) => c.name === accentColor);
+    if (activeColor) {
+      document.documentElement.style.setProperty("--color-accent", activeColor.hex);
+      localStorage.setItem("accentColor", accentColor);
+    }
+  }, [accentColor]);
 
   // Update theme state and save to local storage
   const toggleTheme = () => {
@@ -82,12 +101,12 @@ export default function Portfolio() {
   const getCategoryIcon = (category: string) => {
     const name = category.toLowerCase();
     if (name.includes("lang"))
-      return <Terminal className="w-5 h-5 text-aurometalsaurus" />;
+      return <Terminal className="w-5 h-5 text-bronze" />;
     if (name.includes("front"))
-      return <Layers className="w-5 h-5 text-aurometalsaurus" />;
+      return <Layers className="w-5 h-5 text-bronze" />;
     if (name.includes("back") || name.includes("data"))
-      return <Cpu className="w-5 h-5 text-aurometalsaurus" />;
-    return <Code className="w-5 h-5 text-aurometalsaurus" />;
+      return <Cpu className="w-5 h-5 text-bronze" />;
+    return <Code className="w-5 h-5 text-bronze" />;
   };
 
   return (
@@ -96,7 +115,7 @@ export default function Portfolio() {
         darkMode
           ? "bg-blackolive text-isabelline"
           : "bg-isabelline text-blackolive"
-      } font-sans selection:bg-aurometalsaurus selection:text-isabelline`}
+      } font-sans selection:bg-bronze selection:text-blackolive`}
     >
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -113,14 +132,14 @@ export default function Portfolio() {
         {/* Orb 1: Top Left */}
         <div
           className={`absolute top-[5%] left-[-15%] w-[35rem] h-[35rem] rounded-full blur-[130px] opacity-25 animate-float-slow transition-colors duration-500 ${
-            darkMode ? "bg-aurometalsaurus" : "bg-quicksilver"
+            darkMode ? "bg-bronze/60" : "bg-bronze/40"
           }`}
         ></div>
 
         {/* Orb 2: Bottom Right */}
         <div
           className={`absolute bottom-[10%] right-[-15%] w-[40rem] h-[40rem] rounded-full blur-[150px] opacity-20 animate-float-reverse transition-colors duration-500 ${
-            darkMode ? "bg-aurometalsaurus" : "bg-lightgray"
+            darkMode ? "bg-aurometalsaurus/60" : "bg-lightgray"
           }`}
         ></div>
 
@@ -140,33 +159,58 @@ export default function Portfolio() {
             : "bg-isabelline/80 border-quicksilver/30 text-blackolive"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-end">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo Brand Initials */}
+          <a
+            href="#hero"
+            className="font-display text-2xl font-bold tracking-tight hover:text-bronze transition-colors duration-200"
+          >
+            V<span className="text-bronze">.</span>S
+          </a>
+
           {/* Desktop Nav Items */}
           <nav className="hidden md:flex items-center gap-8">
             <a
               href="#experience"
-              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
+              className="text-sm font-medium hover:text-bronze transition-colors duration-200"
             >
               Career
             </a>
             <a
               href="#skills"
-              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
+              className="text-sm font-medium hover:text-bronze transition-colors duration-200"
             >
               Skills
             </a>
             <a
               href="#projects"
-              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
+              className="text-sm font-medium hover:text-bronze transition-colors duration-200"
             >
               Projects
             </a>
             <a
               href="#contact"
-              className="text-sm font-medium hover:text-aurometalsaurus transition-colors duration-200"
+              className="text-sm font-medium hover:text-bronze transition-colors duration-200"
             >
               Contact
             </a>
+
+            {/* Color Theme Switcher */}
+            <div className="flex items-center gap-2.5 mr-2">
+              {ACCENT_COLORS.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => setAccentColor(color.name)}
+                  className={`w-3.5 h-3.5 rotate-45 transition-all duration-200 cursor-pointer border hover:scale-125 ${
+                    accentColor === color.name
+                      ? "border-isabelline dark:border-blackolive ring-1 ring-bronze scale-110"
+                      : "border-transparent opacity-60 hover:opacity-100"
+                  } ${color.class}`}
+                  title={`Switch to ${color.name}`}
+                  aria-label={`Switch to ${color.name} theme`}
+                />
+              ))}
+            </div>
 
             {/* Vertical Line */}
             <span
@@ -176,7 +220,7 @@ export default function Portfolio() {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg border transition-all duration-300 ${
+              className={`p-2 rounded-none border transition-all duration-300 ${
                 darkMode
                   ? "border-aurometalsaurus/30 hover:bg-aurometalsaurus/20 text-isabelline"
                   : "border-quicksilver/40 hover:bg-quicksilver/20 text-blackolive"
@@ -193,9 +237,26 @@ export default function Portfolio() {
 
           {/* Mobile Navigation Toggle buttons */}
           <div className="flex items-center gap-4 md:hidden">
+            {/* Mobile Accent Switcher */}
+            <div className="flex items-center gap-2 mr-1">
+              {ACCENT_COLORS.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => setAccentColor(color.name)}
+                  className={`w-3 h-3 rotate-45 transition-all duration-200 cursor-pointer border hover:scale-125 ${
+                    accentColor === color.name
+                      ? "border-isabelline dark:border-blackolive ring-1 ring-bronze scale-110"
+                      : "border-transparent opacity-60 hover:opacity-100"
+                  } ${color.class}`}
+                  title={`Switch to ${color.name}`}
+                  aria-label={`Switch to ${color.name} theme`}
+                />
+              ))}
+            </div>
+
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg border transition-all duration-300 ${
+              className={`p-2 rounded-none border transition-all duration-300 ${
                 darkMode
                   ? "border-aurometalsaurus/30 hover:bg-aurometalsaurus/20 text-isabelline"
                   : "border-quicksilver/40 hover:bg-quicksilver/20 text-blackolive"
@@ -235,28 +296,28 @@ export default function Portfolio() {
             <a
               href="#experience"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
+              className="text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10"
             >
               Career
             </a>
             <a
               href="#skills"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
+              className="text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10"
             >
               Skills
             </a>
             <a
               href="#projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-aurometalsaurus py-2 border-b border-dashed border-aurometalsaurus/10"
+              className="text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10"
             >
               Projects
             </a>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-aurometalsaurus py-2"
+              className="text-lg font-medium hover:text-bronze py-2"
             >
               Contact
             </a>
@@ -271,20 +332,20 @@ export default function Portfolio() {
           id="hero"
           className="min-h-[85vh] flex flex-col items-center justify-center gap-8 py-20 relative text-center"
         >
-          <div className="space-y-6 max-w-3xl flex flex-col items-center justify-center">
-            <h1 className="text-5xl md:text-8xl font-bold tracking-tight leading-[1.1]">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-aurometalsaurus via-quicksilver to-lightgray">
+          <div className="space-y-6 max-w-4xl flex flex-col items-center justify-center">
+            <h1 className="text-6xl md:text-9xl font-semibold tracking-tight leading-[1.05] font-display">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-bronze via-quicksilver to-lightgray">
                 {portfolioData.name}
               </span>
             </h1>
 
-            <p className="text-2xl md:text-3xl font-semibold opacity-90 tracking-tight">
+            <p className="text-xs md:text-sm font-mono uppercase tracking-[0.25em] font-semibold text-bronze">
               {portfolioData.subtitle}
             </p>
 
             <p
-              className={`text-lg md:text-xl leading-relaxed max-w-2xl ${
-                darkMode ? "text-lightgray" : "text-blackolive/80"
+              className={`text-lg md:text-xl leading-relaxed max-w-3xl ${
+                darkMode ? "text-lightgray/90" : "text-blackolive/90"
               }`}
             >
               {portfolioData.bio}
@@ -294,13 +355,13 @@ export default function Portfolio() {
             <div className="pt-4">
               <a
                 href="#projects"
-                className={`px-8 py-4.5 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 duration-200 border cursor-pointer inline-block ${
+                className={`px-8 py-4 rounded-none font-semibold shadow-lg hover:shadow-xl hover:shadow-bronze/10 transition-all hover:-translate-y-0.5 duration-200 border cursor-pointer inline-block ${
                   darkMode
-                    ? "bg-isabelline text-blackolive border-isabelline hover:bg-lightgray"
-                    : "bg-blackolive text-isabelline border-blackolive hover:bg-blackolive/90"
+                    ? "bg-bronze text-blackolive border-bronze hover:bg-[#B5914E]"
+                    : "bg-bronze text-blackolive border-bronze hover:bg-[#B5914E]"
                 }`}
               >
-                View in a different way
+                Explore Projects
               </a>
             </div>
 
@@ -312,10 +373,10 @@ export default function Portfolio() {
                 href={portfolioData.socials.github}
                 target="_blank"
                 rel="noreferrer"
-                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                className={`p-3.5 rounded-none transition-all hover:scale-110 hover:text-bronze border ${
                   darkMode
-                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
-                    : "border-quicksilver/30 bg-lightgray/10"
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5 hover:border-bronze/40 hover:bg-bronze/5"
+                    : "border-quicksilver/30 bg-lightgray/10 hover:border-bronze/40 hover:bg-bronze/5"
                 }`}
                 aria-label="GitHub Profile"
               >
@@ -325,10 +386,10 @@ export default function Portfolio() {
                 href={portfolioData.socials.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                className={`p-3.5 rounded-none transition-all hover:scale-110 hover:text-bronze border ${
                   darkMode
-                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
-                    : "border-quicksilver/30 bg-lightgray/10"
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5 hover:border-bronze/40 hover:bg-bronze/5"
+                    : "border-quicksilver/30 bg-lightgray/10 hover:border-bronze/40 hover:bg-bronze/5"
                 }`}
                 aria-label="LinkedIn Profile"
               >
@@ -336,10 +397,10 @@ export default function Portfolio() {
               </a>
               <a
                 href={portfolioData.socials.email}
-                className={`p-3.5 rounded-full transition-all hover:scale-110 hover:text-aurometalsaurus border ${
+                className={`p-3.5 rounded-none transition-all hover:scale-110 hover:text-bronze border ${
                   darkMode
-                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5"
-                    : "border-quicksilver/30 bg-lightgray/10"
+                    ? "border-aurometalsaurus/20 bg-aurometalsaurus/5 hover:border-bronze/40 hover:bg-bronze/5"
+                    : "border-quicksilver/30 bg-lightgray/10 hover:border-bronze/40 hover:bg-bronze/5"
                 }`}
                 aria-label="Send Email"
               >
@@ -356,11 +417,11 @@ export default function Portfolio() {
         >
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="space-y-4 text-center">
-              <div className="inline-flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
+              <div className="inline-flex items-center gap-2 text-bronze font-mono text-sm tracking-wider uppercase">
                 <Briefcase className="w-4 h-4" />
                 <span>Professional Experience</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight italic">
                 Work Timeline
               </h2>
             </div>
@@ -370,19 +431,19 @@ export default function Portfolio() {
                 <div key={idx} className="relative group">
                   {/* Timeline bullet indicator */}
                   <span
-                    className={`absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 group-hover:scale-125 ${
+                    className={`absolute -left-[28px] md:-left-[36px] top-2.5 w-2.5 h-2.5 rotate-45 border-2 transition-all duration-300 group-hover:scale-125 ${
                       darkMode
-                        ? "bg-blackolive border-aurometalsaurus group-hover:bg-aurometalsaurus"
-                        : "bg-isabelline border-aurometalsaurus group-hover:bg-aurometalsaurus"
+                        ? "bg-blackolive border-bronze/60 group-hover:bg-bronze"
+                        : "bg-isabelline border-bronze/60 group-hover:bg-bronze"
                     }`}
                   ></span>
 
                   {/* Experience Card */}
                   <div
-                    className={`p-6 rounded-xl border transition-all duration-300 ${
+                    className={`p-6 rounded-none border transition-all duration-300 ${
                       darkMode
-                        ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-aurometalsaurus/40"
-                        : "bg-white border-quicksilver/30 hover:border-quicksilver/60"
+                        ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-bronze/45 hover:shadow-md"
+                        : "bg-white border-quicksilver/30 hover:border-bronze/45 hover:shadow-md"
                     }`}
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
@@ -390,12 +451,12 @@ export default function Portfolio() {
                         <h3 className="text-lg font-bold tracking-tight">
                           {exp.role}
                         </h3>
-                        <p className="text-sm font-medium text-aurometalsaurus font-mono">
+                        <p className="text-sm font-semibold text-bronze font-mono">
                           {exp.company}
                         </p>
                       </div>
                       <span
-                        className={`text-xs font-mono px-3 py-1 rounded-full border self-start md:self-center ${
+                        className={`text-xs font-mono px-3 py-1 rounded-none border self-start md:self-center ${
                           darkMode
                             ? "bg-blackolive/60 border-aurometalsaurus/15 text-lightgray"
                             : "bg-lightgray/15 border-quicksilver/30 text-blackolive"
@@ -415,11 +476,15 @@ export default function Portfolio() {
                       ))}
                     </ul>
 
-                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-dashed border-aurometalsaurus/10">
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-dashed border-aurometalsaurus/10">
                       {exp.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
-                          className="text-[10px] font-mono px-2 py-0.5 rounded opacity-75 hover:opacity-100 transition-opacity"
+                          className={`text-[10px] font-mono px-2.5 py-0.5 rounded-none border transition-all duration-200 cursor-default ${
+                            darkMode
+                              ? "bg-blackolive/40 border-aurometalsaurus/20 text-lightgray hover:border-bronze/40 hover:text-isabelline"
+                              : "bg-lightgray/10 border-quicksilver/20 text-blackolive/80 hover:border-bronze/40 hover:text-blackolive"
+                          }`}
                         >
                           #{skill}
                         </span>
@@ -439,11 +504,11 @@ export default function Portfolio() {
         >
           <div className="space-y-12">
             <div className="space-y-4 text-center">
-              <div className="inline-flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
+              <div className="inline-flex items-center gap-2 text-bronze font-mono text-sm tracking-wider uppercase">
                 <Code className="w-4 h-4" />
                 <span>My Toolkit</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight italic">
                 Technical Expertise
               </h2>
             </div>
@@ -452,16 +517,16 @@ export default function Portfolio() {
               {portfolioData.skills.map((cat, idx) => (
                 <div
                   key={idx}
-                  className={`p-6 rounded-xl border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  className={`p-6 rounded-none border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
                     darkMode
-                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-aurometalsaurus/40"
-                      : "bg-white border-quicksilver/30 hover:border-quicksilver/60"
+                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-bronze/45"
+                      : "bg-white border-quicksilver/30 hover:border-bronze/45"
                   }`}
                 >
                   <div>
                     <div className="flex items-center gap-3 mb-6">
                       {getCategoryIcon(cat.category)}
-                      <h3 className="font-bold text-lg tracking-tight">
+                      <h3 className="font-bold text-lg tracking-tight font-display italic">
                         {cat.category}
                       </h3>
                     </div>
@@ -469,10 +534,10 @@ export default function Portfolio() {
                       {cat.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition-all duration-200 cursor-default ${
+                          className={`px-3 py-1.5 rounded-none text-xs font-mono font-medium border transition-all duration-200 cursor-default ${
                             darkMode
-                              ? "bg-blackolive/60 border-aurometalsaurus/15 text-lightgray hover:border-aurometalsaurus/40 hover:text-isabelline"
-                              : "bg-lightgray/15 border-quicksilver/30 text-blackolive hover:border-quicksilver/65 hover:bg-lightgray/30"
+                              ? "bg-blackolive/60 border-aurometalsaurus/15 text-lightgray hover:border-bronze/40 hover:text-isabelline"
+                              : "bg-lightgray/15 border-quicksilver/30 text-blackolive hover:border-bronze/40 hover:bg-lightgray/30"
                           }`}
                         >
                           {skill}
@@ -494,11 +559,11 @@ export default function Portfolio() {
           <div className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
+                <div className="inline-flex items-center gap-2 text-bronze font-mono text-sm tracking-wider uppercase">
                   <Folder className="w-4 h-4" />
                   <span>My Creations</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight italic">
                   Featured Projects
                 </h2>
               </div>
@@ -509,14 +574,12 @@ export default function Portfolio() {
                   <button
                     key={tag}
                     onClick={() => setProjectFilter(tag)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all border ${
+                    className={`px-3 py-1.5 rounded-none text-xs font-mono font-medium transition-all border cursor-pointer ${
                       projectFilter === tag
-                        ? darkMode
-                          ? "bg-isabelline text-blackolive border-isabelline"
-                          : "bg-blackolive text-isabelline border-blackolive"
+                        ? "bg-bronze text-blackolive border-bronze font-semibold"
                         : darkMode
-                          ? "border-aurometalsaurus/20 text-lightgray hover:border-aurometalsaurus/40 hover:bg-aurometalsaurus/5"
-                          : "border-quicksilver/35 text-blackolive/70 hover:border-quicksilver/60 hover:bg-lightgray/10"
+                          ? "border-aurometalsaurus/20 text-lightgray hover:border-bronze/40 hover:bg-bronze/5"
+                          : "border-quicksilver/35 text-blackolive/70 hover:border-bronze/40 hover:bg-bronze/5"
                     }`}
                   >
                     {tag}
@@ -530,22 +593,22 @@ export default function Portfolio() {
               {filteredProjects.map((project, idx) => (
                 <div
                   key={idx}
-                  className={`group rounded-xl border flex flex-col justify-between overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+                  className={`group rounded-none border flex flex-col justify-between overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                     darkMode
-                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-aurometalsaurus/40"
-                      : "bg-white border-quicksilver/30 hover:border-quicksilver/60"
+                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 hover:border-bronze/45"
+                      : "bg-white border-quicksilver/30 hover:border-bronze/45"
                   }`}
                 >
                   <div className="p-6 md:p-8 space-y-4">
                     {/* Header */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Folder className="w-5 h-5 text-aurometalsaurus" />
+                        <Folder className="w-5 h-5 text-bronze" />
                         {project.featured && (
                           <span
-                            className={`text-[10px] font-mono font-bold tracking-wider px-2 py-0.5 rounded uppercase border ${
+                            className={`text-[10px] font-mono font-bold tracking-wider px-2 py-0.5 rounded-none uppercase border ${
                               darkMode
-                                ? "bg-aurometalsaurus/15 border-aurometalsaurus/30 text-isabelline"
+                                ? "bg-bronze/15 border-bronze/35 text-isabelline"
                                 : "bg-lightgray/20 border-quicksilver/45 text-blackolive"
                             }`}
                           >
@@ -561,7 +624,7 @@ export default function Portfolio() {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="hover:text-aurometalsaurus transition-colors duration-200"
+                            className="hover:text-bronze transition-colors duration-200"
                             aria-label="GitHub Repository"
                           >
                             <Github className="w-5 h-5" />
@@ -572,7 +635,7 @@ export default function Portfolio() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="hover:text-aurometalsaurus transition-colors duration-200"
+                            className="hover:text-bronze transition-colors duration-200"
                             aria-label="Live Demo Link"
                           >
                             <ExternalLink className="w-5 h-5" />
@@ -581,7 +644,7 @@ export default function Portfolio() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold tracking-tight group-hover:text-aurometalsaurus transition-colors duration-200">
+                    <h3 className="text-xl font-bold tracking-tight group-hover:text-bronze transition-colors duration-200 font-display italic">
                       {project.title}
                     </h3>
 
@@ -631,11 +694,11 @@ export default function Portfolio() {
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* Info Panel */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="flex items-center gap-2 text-aurometalsaurus font-mono text-sm tracking-wider uppercase">
+              <div className="flex items-center gap-2 text-bronze font-mono text-sm tracking-wider uppercase">
                 <Mail className="w-4 h-4" />
                 <span>Contact Info</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tight italic">
                 Let's Connect
               </h2>
               <p
@@ -650,16 +713,16 @@ export default function Portfolio() {
               <div className="space-y-4 pt-4 font-mono text-xs md:text-sm">
                 <a
                   href={portfolioData.socials.email}
-                  className="flex items-center gap-3 hover:text-aurometalsaurus transition-colors"
+                  className="flex items-center gap-3 hover:text-bronze transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-aurometalsaurus shrink-0" />
+                  <Mail className="w-4 h-4 text-bronze shrink-0" />
                   <span>
                     {portfolioData.socials.email.replace("mailto:", "")}
                   </span>
                 </a>
                 <div className="flex items-center gap-3">
-                  <span className="w-4 h-4 block border border-aurometalsaurus rounded-full shrink-0 flex items-center justify-center">
-                    <span className="w-1.5 h-1.5 bg-aurometalsaurus rounded-full"></span>
+                  <span className="w-3.5 h-3.5 block border border-bronze rotate-45 shrink-0 flex items-center justify-center">
+                    <span className="w-1.5 h-1.5 bg-bronze rotate-45"></span>
                   </span>
                   <span>Remote / Global Work</span>
                 </div>
@@ -670,13 +733,13 @@ export default function Portfolio() {
             <div className="lg:col-span-7">
               {formSubmitted ? (
                 <div
-                  className={`p-8 rounded-xl border flex flex-col items-center justify-center text-center space-y-4 min-h-[300px] transition-all duration-300 ${
+                  className={`p-8 rounded-none border flex flex-col items-center justify-center text-center space-y-4 min-h-[300px] transition-all duration-300 ${
                     darkMode
-                      ? "bg-[#2E2F2A] border-aurometalsaurus/30 text-isabelline"
-                      : "bg-white border-quicksilver/40 text-blackolive"
+                      ? "bg-[#2E2F2A] border-bronze/35 text-isabelline"
+                      : "bg-white border-bronze/35 text-blackolive"
                   }`}
                 >
-                  <CheckCircle className="w-12 h-12 text-aurometalsaurus animate-bounce" />
+                  <CheckCircle className="w-12 h-12 text-bronze animate-bounce" />
                   <h3 className="text-xl font-bold tracking-tight">
                     Message Transmitted!
                   </h3>
@@ -690,16 +753,16 @@ export default function Portfolio() {
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className={`p-6 md:p-8 rounded-xl border space-y-6 ${
+                  className={`p-6 md:p-8 rounded-none border space-y-6 transition-all duration-350 ${
                     darkMode
-                      ? "bg-[#2E2F2A] border-aurometalsaurus/20"
-                      : "bg-white border-quicksilver/30"
+                      ? "bg-[#2E2F2A] border-aurometalsaurus/20 focus-within:border-bronze/30"
+                      : "bg-white border-quicksilver/30 focus-within:border-bronze/30"
                   }`}
                 >
                   <div className="space-y-2">
                     <label
                       htmlFor="form-name"
-                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                      className="text-xs font-mono font-semibold tracking-wide uppercase text-bronze"
                     >
                       Your Name
                     </label>
@@ -712,10 +775,10 @@ export default function Portfolio() {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       placeholder="Jane Doe"
-                      className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-all duration-200 ${
+                      className={`w-full px-4 py-3 rounded-none border text-sm outline-none transition-all duration-200 ${
                         darkMode
-                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-aurometalsaurus text-isabelline placeholder:text-quicksilver/50"
-                          : "bg-lightgray/5 border-quicksilver/35 focus:border-blackolive text-blackolive placeholder:text-quicksilver"
+                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-bronze text-isabelline placeholder:text-quicksilver/50"
+                          : "bg-lightgray/5 border-quicksilver/35 focus:border-bronze text-blackolive placeholder:text-quicksilver"
                       }`}
                     />
                   </div>
@@ -723,7 +786,7 @@ export default function Portfolio() {
                   <div className="space-y-2">
                     <label
                       htmlFor="form-email"
-                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                      className="text-xs font-mono font-semibold tracking-wide uppercase text-bronze"
                     >
                       Email Address
                     </label>
@@ -736,10 +799,10 @@ export default function Portfolio() {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       placeholder="jane@example.com"
-                      className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-all duration-200 ${
+                      className={`w-full px-4 py-3 rounded-none border text-sm outline-none transition-all duration-200 ${
                         darkMode
-                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-aurometalsaurus text-isabelline placeholder:text-quicksilver/50"
-                          : "bg-lightgray/5 border-quicksilver/35 focus:border-blackolive text-blackolive placeholder:text-quicksilver"
+                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-bronze text-isabelline placeholder:text-quicksilver/50"
+                          : "bg-lightgray/5 border-quicksilver/35 focus:border-bronze text-blackolive placeholder:text-quicksilver"
                       }`}
                     />
                   </div>
@@ -747,7 +810,7 @@ export default function Portfolio() {
                   <div className="space-y-2">
                     <label
                       htmlFor="form-message"
-                      className="text-xs font-mono font-medium tracking-wide uppercase opacity-80"
+                      className="text-xs font-mono font-semibold tracking-wide uppercase text-bronze"
                     >
                       Write Message
                     </label>
@@ -760,24 +823,24 @@ export default function Portfolio() {
                         setFormData({ ...formData, message: e.target.value })
                       }
                       placeholder="What would you like to build?"
-                      className={`w-full px-4 py-3 rounded-lg border text-sm outline-none resize-none transition-all duration-200 ${
+                      className={`w-full px-4 py-3 rounded-none border text-sm outline-none resize-none transition-all duration-200 ${
                         darkMode
-                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-aurometalsaurus text-isabelline placeholder:text-quicksilver/50"
-                          : "bg-lightgray/5 border-quicksilver/35 focus:border-blackolive text-blackolive placeholder:text-quicksilver"
+                          ? "bg-blackolive/40 border-aurometalsaurus/25 focus:border-bronze text-isabelline placeholder:text-quicksilver/50"
+                          : "bg-lightgray/5 border-quicksilver/35 focus:border-bronze text-blackolive placeholder:text-quicksilver"
                       }`}
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className={`w-full py-3.5 px-6 rounded-lg font-medium transition-all hover:-translate-y-0.5 duration-200 flex items-center justify-center gap-2 border cursor-pointer ${
+                    className={`w-full py-3.5 px-6 rounded-none font-medium transition-all hover:-translate-y-0.5 duration-200 flex items-center justify-center gap-2 border cursor-pointer ${
                       darkMode
-                        ? "bg-isabelline text-blackolive border-isabelline hover:bg-lightgray"
-                        : "bg-blackolive text-isabelline border-blackolive hover:bg-blackolive/90"
+                        ? "bg-bronze text-blackolive border-bronze hover:bg-[#B5914E]"
+                        : "bg-bronze text-blackolive border-bronze hover:bg-[#B5914E]"
                     }`}
                   >
                     <Send className="w-4 h-4" />
-                    <span>Send Message</span>
+                    <span className="font-bold">Send Message</span>
                   </button>
                 </form>
               )}
@@ -802,14 +865,14 @@ export default function Portfolio() {
             </p>
             <p className="text-xs opacity-60">
               Designed with Isabelline • Quick Silver • Aurometalsaurus • Light
-              Gray • Black Olive
+              Gray • Black Olive • Bronze
             </p>
           </div>
 
           <div className="flex items-center gap-6">
             <a
-              href="#about"
-              className="text-xs font-mono hover:text-aurometalsaurus transition-colors"
+              href="#hero"
+              className="text-xs font-mono hover:text-bronze transition-colors"
             >
               Back to Top
             </a>
@@ -817,7 +880,7 @@ export default function Portfolio() {
               href={portfolioData.socials.github}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono hover:text-aurometalsaurus transition-colors"
+              className="text-xs font-mono hover:text-bronze transition-colors"
             >
               GitHub
             </a>
@@ -825,7 +888,7 @@ export default function Portfolio() {
               href={portfolioData.socials.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono hover:text-aurometalsaurus transition-colors"
+              className="text-xs font-mono hover:text-bronze transition-colors"
             >
               LinkedIn
             </a>
