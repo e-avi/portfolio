@@ -38,4 +38,3 @@ ViditOS looks and feels like a mini operating system, showcasing my projects, re
    ```bash
    git clone https://github.com/<your-username>/viditos.git
    cd viditos
- portfolio
