@@ -6,7 +6,7 @@ function DashBoard() {
   return (
     <div className='dashboard'>
         <TopPanel />
-        <img className="background-image" src='/image-asset.jpeg'/>
+        <img className="background-image" src='/wallpaper.jpg'/>
         <Dock />
     </div>
   )
