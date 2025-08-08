@@ -1,40 +1,42 @@
 ## 🐧 ViditOS
 
-A personal developer portfolio styled like Pop!_OS / GNOME.  
-ViditOS looks and feels like a mini operating system, showcasing my projects, resume, and profile links in draggable “app” windows.
+A personal developer portfolio styled like **macOS**.  
+McOS looks and feels like a mini Apple desktop, showcasing my projects, resume, and profile links inside draggable “app” windows.  
 
 ---
 
-## 🚀 Features
+## 🚀 Features  
 
-- **Desktop UI**  
-  – GNOME-style top bar 
-  – Bottom dock with “apps” icons  
-  – Linux–inspired wallpaper and color theme  
+### 🖥 Desktop UI  
+- macOS-style **top menu bar** with time & status icons  
+- **Dock** at the bottom with “app” icons  
+- macOS-inspired **wallpaper** & **light/dark** theme toggle  
 
-- **Projects App**  
-  – Interactive grid/list of work  
-  – Expandable cards with description, tech stack, links  
+### 📂 Projects App  
+- Interactive **grid/list** of projects  
+- Expandable cards with **description**, **tech stack**, and **links**  
 
-- **Resume App**  
-  – Embedded PDF viewer  
-  – Download button  
+### 📄 Resume App  
+- Embedded **PDF viewer**  
+- **Download Resume** button  
 
-- **Profile Links**  
-  – GitHub & LinkedIn icons in dock (opens in new tab)  
+### 🌐 Profile Links  
+- **GitHub**, **LinkedIn**, and more — accessible via dock icons  
 
-- **About (whoami)**  
-  – Optional terminal-style window with name, role, tech stack  
+### 👤 About App  
+- Minimal **About This Mac**–style popup with name, role, and tech stack  
 
-- **Lightweight & Zero Backend**  
-  – Pure React + TailwindCSS + static JSON/MD files  
-  – Hosted for free on GitHub Pages
+### ⚡ Lightweight & Zero Backend  
+- Pure **React** + **TailwindCSS** + static JSON/Markdown files  
+- Hosted for free on **GitHub Pages**  
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation  
 
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/<your-username>/viditos.git
-   cd viditos
+```bash
+# Clone the repository
+git clone https://github.com/<your-username>/mcos.git
+
+# Navigate into the project folder
+cd mcos
