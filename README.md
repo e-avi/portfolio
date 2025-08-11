@@ -36,7 +36,7 @@ McOS looks and feels like a mini Apple desktop, showcasing my projects, resume, 
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/mcos.git
+git clone https://github.com/e-avi/portfolio.git
 
 # Navigate into the project folder
-cd mcos
+cd portfolio/portfolio-webapp
