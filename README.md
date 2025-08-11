@@ -21,14 +21,10 @@ McOS looks and feels like a mini Apple desktop, showcasing my projects, resume, 
 - **Download Resume** button  
 
 ### 🌐 Profile Links  
-- **GitHub**, **LinkedIn**, and more — accessible via dock icons  
+- **GitHub**, **LinkedIn**, and more, accessible via dock icons  
 
 ### 👤 About App  
 - Minimal **About This Mac**–style popup with name, role, and tech stack  
-
-### ⚡ Lightweight & Zero Backend  
-- Pure **React** + **TailwindCSS** + static JSON/Markdown files  
-- Hosted for free on **GitHub Pages**  
 
 ---
 
