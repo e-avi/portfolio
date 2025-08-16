@@ -36,3 +36,9 @@ git clone https://github.com/e-avi/portfolio.git
 
 # Navigate into the project folder
 cd portfolio/portfolio-webapp
+
+# Install necessary dependencies
+npm install
+
+# Run the Application
+npm run dev
