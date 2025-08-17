@@ -1,7 +1,7 @@
 ## 🐧 ViditOS
 
 A personal developer portfolio styled like **macOS**.  
-McOS looks and feels like a mini Apple desktop, showcasing my projects, resume, and profile links inside draggable “app” windows.  
+McOS looks and feels like a mini Apple desktop, showcasing my projects, resume, and profile links. Built on React with 0 backend.
 
 ---
 
