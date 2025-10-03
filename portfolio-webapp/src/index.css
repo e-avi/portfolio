@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'OSFont';
-    src: url('/fonts/FiraSans-SemiBold.ttf') format('truetype');
-}
-
-body {
-    font-family: 'OSFont';
-    overflow: hidden;
-}
