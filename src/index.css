@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --color-accent: #C5A059;
@@ -12,6 +13,7 @@
   --color-lightgray: #D3D3D3;
   --color-blackolive: #3B3C36;
   --color-bronze: var(--color-accent);
+  --color-bronze-dark: color-mix(in srgb, var(--color-accent) 80%, black);
 
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Cormorant Garamond', serif;
