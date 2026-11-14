@@ -1,58 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --color-accent: #C5A059;
+  --color-accent: #2563EB;
+}
+
+.dark {
+  --color-accent: #60A5FA;
 }
 
 @theme {
-  --color-isabelline: #F4F0EC;
-  --color-quicksilver: #A6A6A6;
-  --color-aurometalsaurus: #6E7F80;
-  --color-lightgray: #D3D3D3;
-  --color-blackolive: #3B3C36;
+  --color-isabelline: #FAFAFA;
+  --color-quicksilver: #A1A1AA;
+  --color-aurometalsaurus: #71717A;
+  --color-lightgray: #E4E4E7;
+  --color-blackolive: #09090B;
   --color-bronze: var(--color-accent);
   --color-bronze-dark: color-mix(in srgb, var(--color-accent) 80%, black);
 
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-
-  --animate-float-slow: float-slow 25s ease-in-out infinite;
-  --animate-float-reverse: float-reverse 30s ease-in-out infinite;
-  --animate-float-mid: float-mid 20s ease-in-out infinite;
-
-  @keyframes float-slow {
-    0%, 100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(60px, -80px) scale(1.2);
-    }
-    66% {
-      transform: translate(-40px, 40px) scale(0.85);
-    }
-  }
-  @keyframes float-reverse {
-    0%, 100% {
-      transform: translate(0px, 0px) scale(1.15);
-    }
-    33% {
-      transform: translate(-70px, 60px) scale(0.85);
-    }
-    66% {
-      transform: translate(40px, -50px) scale(1.2);
-    }
-  }
-  @keyframes float-mid {
-    0%, 100% {
-      transform: translate(0px, 0px) scale(0.9);
-    }
-    50% {
-      transform: translate(50px, 40px) scale(1.1);
-    }
-  }
 }
 
 @utility font-display {

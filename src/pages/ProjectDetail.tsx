@@ -37,7 +37,7 @@ const getProjectHeroVisual = (id: string) => {
         </div>
         
         {/* Metric badge overlay */}
-        <div className="absolute top-8 right-8 bg-[#2E2F2A]/90 border border-bronze/30 px-3 py-1.5 font-mono text-[10px] tracking-wider text-bronze uppercase">
+        <div className="absolute top-8 right-8 bg-blackolive/80 border border-bronze/30 px-3 py-1.5 font-mono text-[10px] tracking-wider text-bronze uppercase">
           Score: ATS-98%
         </div>
       </div>

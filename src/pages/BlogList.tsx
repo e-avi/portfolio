@@ -85,7 +85,7 @@ export default function BlogList() {
           <div className="space-y-12">
             {/* Featured Post Card */}
             {featuredPost && (
-              <article className="group border border-quicksilver/35 dark:border-aurometalsaurus/20 bg-white dark:bg-[#2E2F2A] hover:border-bronze/50 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_rgba(197,160,89,0.12)]">
+              <article className="group border border-lightgray dark:border-aurometalsaurus/20 bg-white/50 dark:bg-blackolive/60 hover:border-bronze/50 transition-colors rounded">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between space-y-6">
                     <div className="space-y-4">
@@ -131,7 +131,7 @@ export default function BlogList() {
                 {remainingBlogs.map((post, idx) => (
                   <article
                     key={post.id}
-                    className="group border border-quicksilver/35 dark:border-aurometalsaurus/20 flex flex-col justify-between overflow-hidden bg-white dark:bg-[#2E2F2A] hover:border-bronze/50 hover:shadow-[0_10px_30px_-10px_rgba(197,160,89,0.12)] transition-all duration-300"
+                    className="group border border-lightgray dark:border-aurometalsaurus/20 flex flex-col justify-between overflow-hidden bg-white/50 dark:bg-blackolive/60 hover:border-bronze/50 transition-colors rounded"
                   >
                     <div>
                       {/* Top Graphic Banner */}

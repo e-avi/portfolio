@@ -96,7 +96,7 @@ export default function Projects() {
           {filteredProjects.map((project, idx) => (
             <div
               key={idx}
-              className="group rounded-none border flex flex-col justify-between overflow-hidden transition-all duration-300 hover:-translate-y-1.5 bg-white dark:bg-[#2E2F2A] border-quicksilver/30 dark:border-aurometalsaurus/20 hover:border-bronze/50 hover:shadow-[0_10px_30px_-10px_rgba(197,160,89,0.15)]"
+              className="group rounded border flex flex-col justify-between overflow-hidden transition-colors bg-white/50 dark:bg-blackolive/60 border-lightgray dark:border-aurometalsaurus/20 hover:border-bronze/50"
             >
               <div>
                 {/* Abstract Visual Header */}

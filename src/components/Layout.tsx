@@ -3,24 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Sun, Moon, Menu, X, Mail } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
 
-const ACCENT_COLORS = [
-  { name: "Gold", hex: "#C5A059", class: "bg-[#C5A059]" },
-  { name: "Terracotta", hex: "#B25034", class: "bg-[#B25034]" },
-  { name: "Steel Blue", hex: "#4A6B82", class: "bg-[#4A6B82]" },
-  { name: "Forest Green", hex: "#2E7D52", class: "bg-[#2E7D52]" },
-];
-
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
   const [darkMode, setDarkMode] = useState<boolean>(true);
-  const [accentColor, setAccentColor] = useState<string>(() => {
-    return localStorage.getItem("accentColor") || "Gold";
-  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-
   const location = useLocation();
 
   // Handle system dark mode setting or stored preference
@@ -44,18 +33,6 @@ export default function Layout({ children }: LayoutProps) {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
-
-  // Handle dynamic accent color switching
-  useEffect(() => {
-    const activeColor = ACCENT_COLORS.find((c) => c.name === accentColor);
-    if (activeColor) {
-      document.documentElement.style.setProperty(
-        "--color-accent",
-        activeColor.hex,
-      );
-      localStorage.setItem("accentColor", accentColor);
-    }
-  }, [accentColor]);
 
   // Handle scrolling to hash anchor or top of the page on route change
   useEffect(() => {
@@ -82,251 +59,155 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 ${
+      className={`min-h-screen transition-colors duration-200 ${
         darkMode
           ? "bg-blackolive text-isabelline"
           : "bg-isabelline text-blackolive"
-      } font-sans selection:bg-bronze selection:text-blackolive flex flex-col justify-between`}
+      } font-sans flex flex-col justify-between`}
     >
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Dot Grid Pattern Overlay */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-500 opacity-[0.12] ${
-            darkMode
-              ? "bg-[radial-gradient(#F4F0EC_1px,transparent_1px)]"
-              : "bg-[radial-gradient(#3B3C36_1px,transparent_1px)]"
-          } [background-size:28px_28px]`}
-        ></div>
-
-        {/* Animated Gradient Orbs */}
-        <div
-          className={`absolute top-[5%] left-[-15%] w-[35rem] h-[35rem] rounded-full blur-[130px] opacity-25 animate-float-slow transition-colors duration-500 ${
-            darkMode ? "bg-bronze/60" : "bg-bronze/40"
-          }`}
-        ></div>
-
-        <div
-          className={`absolute bottom-[10%] right-[-15%] w-[40rem] h-[40rem] rounded-full blur-[150px] opacity-20 animate-float-reverse transition-colors duration-500 ${
-            darkMode ? "bg-aurometalsaurus/60" : "bg-lightgray"
-          }`}
-        ></div>
-
-        <div
-          className={`absolute top-[40%] left-[25%] w-[30rem] h-[30rem] rounded-full blur-[120px] opacity-15 animate-float-mid transition-colors duration-500 ${
-            darkMode ? "bg-quicksilver/50" : "bg-aurometalsaurus/30"
-          }`}
-        ></div>
-      </div>
-
-      {/* Floating Header Navigation */}
+      {/* Minimal Header */}
       <header
-        className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        className={`sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-200 ${
           darkMode
             ? "bg-blackolive/80 border-aurometalsaurus/20 text-isabelline"
-            : "bg-isabelline/80 border-quicksilver/30 text-blackolive"
+            : "bg-isabelline/80 border-lightgray text-blackolive"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link
             to="/"
-            className="font-display text-2xl font-bold tracking-tight hover:text-bronze transition-colors duration-200"
+            className="font-semibold text-lg tracking-tight hover:text-bronze transition-colors"
           >
-            V<span className="text-bronze">.</span>S
+            {portfolioData.name}
           </Link>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               to="/"
-              className={`text-sm font-medium hover:text-bronze transition-colors duration-200 ${
-                location.pathname === "/" && !location.hash ? "text-bronze" : ""
+              className={`text-sm hover:text-bronze transition-colors ${
+                location.pathname === "/" && !location.hash
+                  ? "text-bronze font-medium"
+                  : "text-aurometalsaurus dark:text-quicksilver"
               }`}
             >
               Home
             </Link>
             <Link
               to="/career"
-              className={`text-sm font-medium hover:text-bronze transition-colors duration-200 ${
+              className={`text-sm hover:text-bronze transition-colors ${
                 location.pathname === "/career" ||
                 location.pathname.startsWith("/career/")
-                  ? "text-bronze"
-                  : ""
+                  ? "text-bronze font-medium"
+                  : "text-aurometalsaurus dark:text-quicksilver"
               }`}
             >
               Career
             </Link>
             <Link
               to="/projects"
-              className={`text-sm font-medium hover:text-bronze transition-colors duration-200 ${
+              className={`text-sm hover:text-bronze transition-colors ${
                 location.pathname === "/projects" ||
                 location.pathname.startsWith("/projects/")
-                  ? "text-bronze"
-                  : ""
+                  ? "text-bronze font-medium"
+                  : "text-aurometalsaurus dark:text-quicksilver"
               }`}
             >
               Projects
             </Link>
             <Link
               to="/blogs"
-              className={`text-sm font-medium hover:text-bronze transition-colors duration-200 ${
-                location.pathname.startsWith("/blogs") ? "text-bronze" : ""
+              className={`text-sm hover:text-bronze transition-colors ${
+                location.pathname.startsWith("/blogs")
+                  ? "text-bronze font-medium"
+                  : "text-aurometalsaurus dark:text-quicksilver"
               }`}
             >
-              Blogs
+              Writing
             </Link>
-            {/* Color Theme Switcher */}
-            <div className="flex items-center gap-2.5 mr-2">
-              {ACCENT_COLORS.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => setAccentColor(color.name)}
-                  className={`w-3.5 h-3.5 rotate-45 transition-all duration-200 cursor-pointer border hover:scale-125 ${
-                    accentColor === color.name
-                      ? "border-isabelline dark:border-blackolive ring-1 ring-bronze scale-110"
-                      : "border-transparent opacity-60 hover:opacity-100"
-                  } ${color.class}`}
-                  title={`Switch to ${color.name}`}
-                  aria-label={`Switch to ${color.name} theme`}
-                />
-              ))}
-            </div>
 
-            {/* Vertical Line */}
             <span
-              className={`h-4 w-px ${darkMode ? "bg-aurometalsaurus/35" : "bg-quicksilver/50"}`}
-            ></span>
+              className={`h-4 w-px ${darkMode ? "bg-aurometalsaurus/30" : "bg-lightgray"}`}
+            />
 
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-none border transition-all duration-300 ${
-                darkMode
-                  ? "border-aurometalsaurus/30 hover:bg-aurometalsaurus/20 text-isabelline"
-                  : "border-quicksilver/40 hover:bg-quicksilver/20 text-blackolive"
-              }`}
+              className="p-1.5 rounded hover:bg-lightgray/40 dark:hover:bg-aurometalsaurus/20 transition-colors text-aurometalsaurus dark:text-quicksilver hover:text-blackolive dark:hover:text-isabelline"
               aria-label="Toggle theme"
             >
-              {darkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
             {/* Direct Email CTA */}
             <a
               href={portfolioData.socials.email}
-              className="px-4 py-2 font-mono text-xs font-bold border border-bronze text-bronze hover:bg-bronze hover:text-blackolive transition-all duration-200 flex items-center gap-2"
+              className="text-xs font-mono px-3 py-1.5 rounded border border-aurometalsaurus/30 dark:border-aurometalsaurus/40 hover:border-bronze hover:text-bronze transition-colors flex items-center gap-1.5"
             >
-              <Mail className="w-3.5 h-3.5" /> Email Me
+              <Mail className="w-3.5 h-3.5" /> Contact
             </a>
           </nav>
 
-          {/* Mobile Navigation Toggle buttons */}
-          <div className="flex items-center gap-4 md:hidden">
-            {/* Mobile Accent Switcher */}
-            <div className="flex items-center gap-2 mr-1">
-              {ACCENT_COLORS.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => setAccentColor(color.name)}
-                  className={`w-3 h-3 rotate-45 transition-all duration-200 cursor-pointer border hover:scale-125 ${
-                    accentColor === color.name
-                      ? "border-isabelline dark:border-blackolive ring-1 ring-bronze scale-110"
-                      : "border-transparent opacity-60 hover:opacity-100"
-                  } ${color.class}`}
-                  title={`Switch to ${color.name}`}
-                  aria-label={`Switch to ${color.name} theme`}
-                />
-              ))}
-            </div>
-
+          {/* Mobile Nav Toggle */}
+          <div className="flex items-center gap-3 md:hidden">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-none border transition-all duration-300 ${
-                darkMode
-                  ? "border-aurometalsaurus/30 hover:bg-aurometalsaurus/20 text-isabelline"
-                  : "border-quicksilver/40 hover:bg-quicksilver/20 text-blackolive"
-              }`}
+              className="p-1.5 rounded text-aurometalsaurus dark:text-quicksilver"
               aria-label="Toggle theme"
             >
-              {darkMode ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1"
+              className="p-1.5 rounded text-aurometalsaurus dark:text-quicksilver"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div
-            className={`md:hidden absolute top-full left-0 right-0 border-b flex flex-col p-6 gap-4 z-40 animate-in fade-in slide-in-from-top-5 duration-200 transition-colors ${
+            className={`md:hidden border-b px-6 py-4 flex flex-col gap-3 text-sm ${
               darkMode
-                ? "bg-blackolive border-aurometalsaurus/20 text-isabelline"
-                : "bg-isabelline border-quicksilver/30 text-blackolive"
+                ? "bg-blackolive border-aurometalsaurus/20"
+                : "bg-isabelline border-lightgray"
             }`}
           >
             <Link
               to="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10 bg-transparent"
+              className="py-1 hover:text-bronze"
             >
               Home
             </Link>
             <Link
               to="/career"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10 bg-transparent"
+              className="py-1 hover:text-bronze"
             >
               Career
             </Link>
             <Link
-              to="/#skills"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10 bg-transparent"
-            >
-              Skills
-            </Link>
-            <Link
               to="/projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10 bg-transparent"
+              className="py-1 hover:text-bronze"
             >
               Projects
             </Link>
             <Link
               to="/blogs"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10"
+              className="py-1 hover:text-bronze"
             >
-              Blogs
-            </Link>
-            <Link
-              to="/#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-medium hover:text-bronze py-2 border-b border-dashed border-aurometalsaurus/10 bg-transparent"
-            >
-              Contact
+              Writing
             </Link>
             <a
               href={portfolioData.socials.email}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-left text-lg font-mono font-bold text-bronze py-2 flex items-center gap-2"
+              className="py-1 text-bronze font-mono flex items-center gap-2"
             >
               <Mail className="w-4 h-4" /> Email Me
             </a>
@@ -334,44 +215,29 @@ export default function Layout({ children }: LayoutProps) {
         )}
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-6 relative z-10 w-full flex-grow flex flex-col">
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-6 w-full flex-grow flex flex-col">
         {children}
       </main>
 
-      {/* FOOTER */}
+      {/* Minimal Footer */}
       <footer
-        className={`border-t py-12 relative z-10 transition-colors duration-300 w-full ${
+        className={`border-t py-8 transition-colors duration-200 w-full ${
           darkMode
-            ? "bg-blackolive/50 border-aurometalsaurus/15 text-lightgray"
-            : "bg-lightgray/10 border-quicksilver/20 text-blackolive/80"
+            ? "border-aurometalsaurus/20 text-aurometalsaurus"
+            : "border-lightgray text-quicksilver"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <p className="text-sm font-mono">
-              © {new Date().getFullYear()} {portfolioData.name}. All rights
-              reserved.
-            </p>
-            <p className="text-xs opacity-60">
-              Designed with Isabelline • Quick Silver • Aurometalsaurus • Light
-              Gray • Black Olive • Bronze
-            </p>
-          </div>
-
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+          <p>
+            © {new Date().getFullYear()} {portfolioData.name}
+          </p>
           <div className="flex items-center gap-6">
-            <Link
-              to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-xs font-mono hover:text-bronze transition-colors cursor-pointer"
-            >
-              Home
-            </Link>
             <a
               href={portfolioData.socials.github}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono hover:text-bronze transition-colors"
+              className="hover:text-bronze transition-colors"
             >
               GitHub
             </a>
@@ -379,9 +245,15 @@ export default function Layout({ children }: LayoutProps) {
               href={portfolioData.socials.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono hover:text-bronze transition-colors"
+              className="hover:text-bronze transition-colors"
             >
               LinkedIn
+            </a>
+            <a
+              href={portfolioData.socials.email}
+              className="hover:text-bronze transition-colors"
+            >
+              Email
             </a>
           </div>
         </div>

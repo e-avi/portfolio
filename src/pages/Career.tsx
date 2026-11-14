@@ -32,10 +32,10 @@ export default function Career() {
           {portfolioData.experience.map((exp, idx) => (
             <div key={idx} className="relative group">
               {/* Timeline bullet indicator */}
-              <span className="absolute -left-[31px] md:-left-[39px] top-2.5 w-2.5 h-2.5 rotate-45 border-2 transition-all duration-300 group-hover:scale-125 bg-isabelline dark:bg-blackolive border-bronze/60 group-hover:bg-bronze"></span>
+              <span className="absolute -left-[30px] md:-left-[38px] top-3.5 w-2.5 h-2.5 rounded-full transition-colors bg-lightgray dark:bg-aurometalsaurus group-hover:bg-bronze"></span>
 
               {/* Experience Card */}
-              <div className="p-6 rounded-none border transition-all duration-300 bg-white dark:bg-[#2E2F2A] border-quicksilver/30 dark:border-aurometalsaurus/20 hover:border-bronze/45 hover:shadow-md">
+              <div className="p-6 rounded border transition-colors bg-white/50 dark:bg-blackolive/60 border-lightgray dark:border-aurometalsaurus/20 hover:border-bronze/50">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
                   <div>
                     <h3 className="text-lg font-bold tracking-tight">
