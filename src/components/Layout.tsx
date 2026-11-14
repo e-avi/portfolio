@@ -76,12 +76,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link
             to="/"
-            className="flex items-center gap-2.5 font-semibold text-base tracking-tight hover:text-bronze transition-colors group"
+            className="font-semibold text-lg tracking-tight hover:text-bronze transition-colors"
           >
-            <span className="w-7 h-7 rounded bg-blackolive text-isabelline dark:bg-isabelline dark:text-blackolive flex items-center justify-center font-mono text-xs font-bold transition-transform group-hover:scale-105">
-              VS
-            </span>
-            <span>{portfolioData.name}</span>
+            {portfolioData.name}
           </Link>
 
           {/* Desktop Nav */}
