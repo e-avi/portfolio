@@ -71,7 +71,7 @@ export const portfolioData: PortfolioData = {
   socials: {
     github: "https://github.com/e-avi",
     linkedin: "https://www.linkedin.com/in/vidit-saxena-54a489251",
-    email: "mailto:avi18128@gmail.com",
+    email: "mailto:saxenavidit2312@gmail.com",
   },
   skills: [
     {

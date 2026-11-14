@@ -98,6 +98,34 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* SKILLS SECTION */}
+      <section id="skills" className="border-t border-lightgray dark:border-aurometalsaurus/20 pt-12 space-y-6">
+        <div className="flex items-center gap-2">
+          <Code className="w-4 h-4 text-bronze" />
+          <h2 className="text-xl font-bold tracking-tight">Technical Toolkit</h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {portfolioData.skills.map((cat, idx) => (
+            <div key={idx} className="space-y-2">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-aurometalsaurus dark:text-quicksilver font-semibold">
+                {cat.category}
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {cat.skills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className="text-xs font-mono px-2 py-1 rounded border border-lightgray dark:border-aurometalsaurus/20 bg-lightgray/20 dark:bg-blackolive/40 text-blackolive/80 dark:text-quicksilver"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* EXPERIENCE / CAREER SECTION */}
       <section id="experience" className="border-t border-lightgray dark:border-aurometalsaurus/20 pt-12 space-y-6">
         <div className="flex items-center justify-between">
@@ -266,34 +294,6 @@ export default function Portfolio() {
           >
             View full project archive <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-        </div>
-      </section>
-
-      {/* SKILLS SECTION */}
-      <section id="skills" className="border-t border-lightgray dark:border-aurometalsaurus/20 pt-12 space-y-6">
-        <div className="flex items-center gap-2">
-          <Code className="w-4 h-4 text-bronze" />
-          <h2 className="text-xl font-bold tracking-tight">Technical Toolkit</h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {portfolioData.skills.map((cat, idx) => (
-            <div key={idx} className="space-y-2">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-aurometalsaurus dark:text-quicksilver font-semibold">
-                {cat.category}
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {cat.skills.map((skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="text-xs font-mono px-2 py-1 rounded border border-lightgray dark:border-aurometalsaurus/20 bg-lightgray/20 dark:bg-blackolive/40 text-blackolive/80 dark:text-quicksilver"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
