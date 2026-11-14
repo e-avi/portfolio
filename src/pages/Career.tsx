@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, ArrowRight, ArrowLeft } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";

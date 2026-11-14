@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Folder, Github, ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
 
-const getProjectVisual = (title: string, index: number) => {
+const getProjectVisual = (index: number) => {
   const gradients = [
     "from-[#2B2F2E] via-[#353833] to-bronze/10",
     "from-[#382E2B] via-[#40312D] to-bronze/10",
@@ -100,7 +100,7 @@ export default function Projects() {
             >
               <div>
                 {/* Abstract Visual Header */}
-                {getProjectVisual(project.title, idx)}
+                {getProjectVisual(idx)}
 
                 <div className="p-6 md:p-8 space-y-4">
                   {/* Header */}

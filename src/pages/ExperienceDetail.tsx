@@ -1,13 +1,10 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   ArrowLeft,
   Briefcase,
   Calendar,
-  CheckCircle,
   Cpu,
-  Trophy,
-  ExternalLink
+  Trophy
 } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
 

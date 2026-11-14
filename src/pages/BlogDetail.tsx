@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, BookOpen, Tag } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
